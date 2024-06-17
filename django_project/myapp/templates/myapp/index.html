@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GraphQL Web Service UI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .post {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .post-title {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .post-content {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .comment {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+            box-shadow: 0 0 3px rgba(0, 0, 0, 0.1);
+        }
+        .comment-author {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Latest Posts</h1>
+        <div class="posts">
+            {% for post in posts %}
+            <div class="post">
+                <h2 class="post-title">{{ post.title }}</h2>
+                <p class="post-content">Post ID : {{ post.id }}</p>
+                <p class="post-content">{{ post.content }}</p>
+                <p class="post-meta">Posted by <strong>{{ post.author.username }}</strong> on {{ post.createdAt }}</p>
+                <h3>Comments:</h3>
+                {% for comment in post.comments %}
+                <div class="comment">
+                    <p class="comment-content">{{ comment.content }}</p>
+                    <p class="comment-meta">Comment by <span class="comment-author">{{ comment.author.username }}</span></p>
+                </div>
+                {% empty %}
+                <p>No comments yet.</p>
+                {% endfor %}
+            </div>
+            {% empty %}
+            <p>No posts found.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
